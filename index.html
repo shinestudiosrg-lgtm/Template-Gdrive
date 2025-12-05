@@ -6,39 +6,68 @@
 <title>Kirim Link GDrive – Shine Studio</title>
 
 <style>
+    /* ==== ANIMASI ==== */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popIn {
+        0% { opacity: 0; transform: scale(0.95); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* ==== WARNA & TEMA ==== */
     body {
         margin: 0;
         padding: 0;
-        background: #0f0f0f;
+        background: #e3f2fd; /* Biru muda */
         font-family: "Segoe UI", sans-serif;
-        color: #fff;
+        color: #002b5b;
+        animation: fadeIn 0.8s ease-out;
     }
 
     .wrapper {
         max-width: 500px;
         margin: 40px auto;
         padding: 25px;
+        animation: fadeIn 0.9s ease-out;
     }
 
     .title {
         text-align: center;
         font-size: 26px;
         font-weight: bold;
-        color: #f1c27d; /* Emas elegan */
+        color: #002b5b;
         margin-bottom: 25px;
         letter-spacing: 1px;
+        opacity: 0;
+        animation: popIn 1s ease forwards;
+        animation-delay: 0.2s;
     }
 
     .card {
-        background: #191919;
+        background: #ffffff;
         padding: 25px;
         border-radius: 18px;
-        box-shadow: 0 0 18px rgba(255, 255, 255, 0.05);
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        border: 2px solid #bbdefb;
+        opacity: 0;
+        animation: slideUp 0.9s ease forwards;
+        animation-delay: 0.35s;
     }
 
     label {
         font-size: 14px;
-        opacity: 0.8;
+        opacity: 0.9;
+        color: #002b5b;
+        display: block;
+        margin-bottom: 4px;
     }
 
     input, textarea {
@@ -47,15 +76,18 @@
         margin-bottom: 18px;
         padding: 14px;
         border-radius: 12px;
-        border: none;
+        border: 1px solid #90caf9;
         outline: none;
-        background: #222;
-        color: #fff;
+        background: #ffffff;
+        color: #002b5b;
         font-size: 16px;
+        transition: 0.25s ease;
     }
 
     input:focus, textarea:focus {
-        border: 1px solid #f1c27d;
+        border: 2px solid #42a5f5;
+        box-shadow: 0 0 10px rgba(66,165,245,0.4);
+        transform: scale(1.01);
     }
 
     button {
@@ -63,22 +95,35 @@
         padding: 14px;
         border: none;
         border-radius: 12px;
-        background: linear-gradient(135deg, #f1c27d, #d5a56a);
+        background: linear-gradient(135deg, #ffeb3b, #fbc02d);
         color: #000;
         font-weight: bold;
         font-size: 17px;
         cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        transition: 0.25s ease;
+        opacity: 0;
+        animation: slideUp 1s ease forwards;
+        animation-delay: 0.55s;
+    }
+
+    button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 14px rgba(0,0,0,0.2);
     }
 
     button:active {
-        transform: scale(0.98);
+        transform: scale(0.97);
     }
 
     .footer {
         text-align: center;
         margin-top: 35px;
         font-size: 13px;
-        opacity: 0.5;
+        opacity: 0;
+        color: #002b5b;
+        animation: fadeIn 1.2s ease forwards;
+        animation-delay: 0.7s;
     }
 </style>
 </head>
@@ -92,7 +137,7 @@
         <input id="nama" type="text" placeholder="Contoh: Kak Aulia">
 
         <label>No WhatsApp Customer</label>
-        <input id="wa" type="text" placeholder="Contoh: 628xxxxx">
+        <input id="wa" type="text" placeholder="Contoh: 08xxxxxxx">
 
         <label>Link Google Drive</label>
         <textarea id="link" rows="3" placeholder="Tempel link GDrive di sini..."></textarea>
@@ -113,6 +158,11 @@ function kirim() {
     if (!nama || !wa || !link) {
         alert("Isi semua data terlebih dahulu.");
         return;
+    }
+
+    // Auto convert 08 → 628
+    if (wa.startsWith("08")) {
+        wa = "62" + wa.substring(1);
     }
 
     let pesan =
