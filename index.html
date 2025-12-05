@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kirim Link GDrive – Shine Studio</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: #0f0f0f;
+        font-family: "Segoe UI", sans-serif;
+        color: #fff;
+    }
+
+    .wrapper {
+        max-width: 500px;
+        margin: 40px auto;
+        padding: 25px;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 26px;
+        font-weight: bold;
+        color: #f1c27d; /* Emas elegan */
+        margin-bottom: 25px;
+        letter-spacing: 1px;
+    }
+
+    .card {
+        background: #191919;
+        padding: 25px;
+        border-radius: 18px;
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.05);
+    }
+
+    label {
+        font-size: 14px;
+        opacity: 0.8;
+    }
+
+    input, textarea {
+        width: 100%;
+        margin-top: 6px;
+        margin-bottom: 18px;
+        padding: 14px;
+        border-radius: 12px;
+        border: none;
+        outline: none;
+        background: #222;
+        color: #fff;
+        font-size: 16px;
+    }
+
+    input:focus, textarea:focus {
+        border: 1px solid #f1c27d;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #f1c27d, #d5a56a);
+        color: #000;
+        font-weight: bold;
+        font-size: 17px;
+        cursor: pointer;
+    }
+
+    button:active {
+        transform: scale(0.98);
+    }
+
+    .footer {
+        text-align: center;
+        margin-top: 35px;
+        font-size: 13px;
+        opacity: 0.5;
+    }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="title">Shine Studio – Kirim Link</div>
+
+    <div class="card">
+        <label>Nama Customer</label>
+        <input id="nama" type="text" placeholder="Contoh: Kak Aulia">
+
+        <label>No WhatsApp Customer</label>
+        <input id="wa" type="text" placeholder="Contoh: 628xxxxx">
+
+        <label>Link Google Drive</label>
+        <textarea id="link" rows="3" placeholder="Tempel link GDrive di sini..."></textarea>
+
+        <button onclick="kirim()">KIRIM KE WHATSAPP</button>
+    </div>
+
+    <div class="footer">© Shine Studio Serang</div>
+</div>
+
+
+<script>
+function kirim() {
+    let nama = document.getElementById("nama").value.trim();
+    let wa = document.getElementById("wa").value.trim();
+    let link = document.getElementById("link").value.trim();
+
+    if (!nama || !wa || !link) {
+        alert("Isi semua data terlebih dahulu.");
+        return;
+    }
+
+    let pesan =
+`Hiii sobat shine 🙌, terimakasih sudah mampir ke "SHINE" studio serang.
+Berikut link Gdrive hasil fotonya ya :
+
+${link}
+
+Jangan lupa untuk segera menyimpan atau memindahkan ke Gdrive pribadi, masa berlaku Drive hanya 7 hari 😉
+
+Mohon bantuan untuk follow sosial media kita : 
+- Instagram : https://www.instagram.com/shine.photostudio_id?igsh=MXRmNXV6eXpuNTg3YQ== 
+- TikTok : https://www.tiktok.com/@shine.photostudio_id?_t=ZS-8uJY7GlXX7q&_r=1
+
+Ikuti juga saluran kita untuk info seputar shine studio dan promo - promo menarik lainnya:
+https://whatsapp.com/channel/0029VbAWEydLtOj8wvUmrB2a 🥰
+
+Jangan lupa tag Instagram kita ya kak @shine.photostudio_id 
+Terimakasih ${nama}, kami tunggu kedatangannya kembali. Jangan lupa ajak orang terkasih 😉🥰`;
+
+    let url = "https://wa.me/" + wa + "?text=" + encodeURIComponent(pesan);
+    window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
